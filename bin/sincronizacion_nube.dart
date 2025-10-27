@@ -1,0 +1,3 @@
+class SincronizacionNube {
+  void sincronizarDatos(){}
+}
