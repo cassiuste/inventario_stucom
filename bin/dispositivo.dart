@@ -7,4 +7,8 @@ class Dispositivo {
 
   Dispositivo(this.id, this.marca, this.modelo, this.anyoFabricacion);
 
+  @override
+  String toString() {
+    return "Id: $id - Marca: $marca - Modelo: $modelo - Fabricacion: ($anyoFabricacion)";
+  }
 }

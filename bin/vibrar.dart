@@ -1,8 +1,6 @@
-class Vibrar {
-
-  late bool vibrando;
+mixin Vibrar{
 
   void activarVibracion(String mensaje){
-    vibrando = true;
+    print(mensaje);
   }
 }

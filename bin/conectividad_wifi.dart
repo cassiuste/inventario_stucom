@@ -1,4 +1,6 @@
-class ConectividadWifi {
+mixin ConectividadWifi {
   
-  void conectarRed(String ssid){}
+  void conectarRed(String ssid){
+    print("Conectando a la red $ssid");
+  }
 }

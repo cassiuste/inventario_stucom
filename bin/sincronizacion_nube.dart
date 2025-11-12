@@ -1,3 +1,6 @@
-class SincronizacionNube {
-  void sincronizarDatos(){}
+mixin SincronizacionNube {
+
+  void sincronizarDatos(){
+    print("Datos sincronizados correctamente. ");
+  }
 }
