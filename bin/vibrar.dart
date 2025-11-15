@@ -1,6 +1,6 @@
 mixin Vibrar{
 
   void activarVibracion(String mensaje){
-    print(mensaje);
+    print("Activando la vibración: $mensaje");
   }
 }

@@ -4,17 +4,13 @@ import 'sincronizacion_nube.dart';
 
 class Servidor extends Dispositivo with ConectividadWifi, SincronizacionNube{
   
-  List<String> librerias;
+  double almacenamiento;
 
   Servidor(
-    this.librerias,
+    this.almacenamiento,
     super.id, super.marca, super.modelo, super.anyoFabricacion);
 
-  // imprime las librerias que tiene, las selecciona el usuario
-  // despues las actualiza
   void actualizarLibrerias(){
-    for(String libreria in librerias){
-      libreria;
-    }
+    print("Actualizando las librerias del servidor...");
   }
 }

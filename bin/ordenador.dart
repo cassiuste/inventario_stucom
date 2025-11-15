@@ -3,6 +3,7 @@ import 'conectividad_wifi.dart';
 import 'sincronizacion_nube.dart';
 
 class Ordenador extends Dispositivo with ConectividadWifi, SincronizacionNube{
+  
   String modeloProcesador;
 
   Ordenador(

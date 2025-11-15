@@ -90,137 +90,60 @@ import 'reloj_inteligente.dart';
         print("---- Crear Ordenador ----");
         var datos = crearDispositivoGenerico();
 
-        print("ID del dispositivo: ");
-        int id = int.parse(stdin.readLineSync()!);
-
-        if (dispositivos.containsKey(id) || ordenadores.containsKey(id)) {
-          print("Ya existe un dispositivo con ese ID.");
-          return;
-        }
-
-        print("Marca: ");
-        String marca = stdin.readLineSync()!;
-
-        print("Modelo: ");
-        String modelo = stdin.readLineSync()!;
-
-        print("Año de fabricación: ");
-        int anyo = int.parse(stdin.readLineSync()!);
-
         print("Modelo del procesador: ");
         String modeloProcesador = stdin.readLineSync()!;
-
           if (datos == null) return;
 
-          List<String> librerias = [];
-
-          // Se crea el reloj inteligente
-            Servidor servidor = Servidor(
-            librerias,
+          // Se crea el Ordenador con el tipo especifico
+            Ordenador ordenador = Ordenador(
+            modeloProcesador,
             datos["id"],
             datos["marca"],
             datos["modelo"],
             datos["anyo"],
           );
 
-          // Se almacena en los mapas de dispositivos y los relojes
-          dispositivos[datos["id"]] = servidor;
-          servidores[datos["id"]] = servidor;
-        // Se crea el ordenador
-          Ordenador ordenador = Ordenador(
-          modeloProcesador,
-          id,
-          marca,
-          modelo,
-          anyo,
-        );
-
-        // Se almacena en los mapas de dispositivos y ordenadores
-        dispositivos[id] = ordenador;
-        ordenadores[id] = ordenador;
+          // Se almacena en los mapas de dispositivos y los ordenadores
+          dispositivos[datos["id"]] = ordenador;
+          ordenadores[datos["id"]] = ordenador;
     }
 
     void crearTablet() {
       print("---- Crear Tablet ----");
-
-        print("ID del dispositivo: ");
-        int id = int.parse(stdin.readLineSync()!);
-
-        if (dispositivos.containsKey(id) || ordenadores.containsKey(id)) {
-          print("Ya existe un dispositivo con ese ID.");
-          return;
-        }
-
-        print("Marca: ");
-        String marca = stdin.readLineSync()!;
-
-        print("Modelo: ");
-        String modelo = stdin.readLineSync()!;
-
-        print("Año de fabricación: ");
-        int anyo = int.parse(stdin.readLineSync()!);
-
+      var datos = crearDispositivoGenerico();
+      if (datos == null) return;
+      
+      print("Sistema operativo: ");
+       String sistemaOperativo = stdin.readLineSync()!;
+        
         // Se crea la tablet
           Tablet tablet = Tablet(
-          id,
-          marca,
-          modelo,
-          anyo,
+          sistemaOperativo,
+          datos["id"],
+          datos["marca"],
+          datos["modelo"],
+          datos["anyo"],
         );
 
         // Se almacena en los mapas de dispositivos y tablets
-        dispositivos[id] = tablet;
-        tablets[id] = tablet;
+        dispositivos[datos["id"]] = tablet;
+        tablets[datos["id"]] = tablet;
     }
 
     void crearRelojInteligente() {
       print("---- Crear Reloj ----");
 
-        print("ID del dispositivo: ");
-        int id = int.parse(stdin.readLineSync()!);
-
-        if (dispositivos.containsKey(id) || ordenadores.containsKey(id)) {
-          print("Ya existe un dispositivo con ese ID.");
-          return;
-        }
-
-        print("Marca: ");
-        String marca = stdin.readLineSync()!;
-
-        print("Modelo: ");
-        String modelo = stdin.readLineSync()!;
-
-
-        print("Año de fabricación: ");
-        int anyo = int.parse(stdin.readLineSync()!);
-
-        List<String> notificaciones = [];
+        var datos = crearDispositivoGenerico();
+        if (datos == null) return;
+        
+        // Verifica el atributo de reloj inteligente
+        print("¿Tiene GPS integrado? (s/n): ");
+        String resp = stdin.readLineSync()!.toLowerCase();
+        bool gpsIntegrado = resp == "s";
 
         // Se crea el reloj inteligente
           RelojInteligente relojInteligente = RelojInteligente(
-          notificaciones,
-          id,
-          marca,
-          modelo,
-          anyo,
-        );
-
-        // Se almacena en los mapas de dispositivos y los relojes
-        dispositivos[id] = relojInteligente;
-        relojesInteligentes[id] = relojInteligente;
-    }
-
-    void crearServidor() {
-      print("---- Crear Servidor ----");
-
-        var datos = crearDispositivoGenerico();
-        if (datos == null) return;
-
-        List<String> librerias = [];
-
-        // Se crea el reloj inteligente
-          Servidor servidor = Servidor(
-          librerias,
+          gpsIntegrado,
           datos["id"],
           datos["marca"],
           datos["modelo"],
@@ -228,9 +151,37 @@ import 'reloj_inteligente.dart';
         );
 
         // Se almacena en los mapas de dispositivos y los relojes
+        dispositivos[datos["id"]] = relojInteligente;
+        relojesInteligentes[datos["id"]] = relojInteligente;
+    }
+
+    void crearServidor() {
+      print("---- Crear Servidor ----");
+
+        // se pide los atributos de Dispositivo
+        var datos = crearDispositivoGenerico();
+        if (datos == null) return;
+
+        // Se pide el atributo que le cree que es el espacio de
+        // almacenamiento
+        print("Almacenamiento (GB): ");
+        double? almacenamiento = double.tryParse(stdin.readLineSync()!);
+        if (almacenamiento == null) {
+          print("Valor inválido.");
+          return;
+        }
+        // Se crea el servidor
+          Servidor servidor = Servidor(
+          almacenamiento,
+          datos["id"],
+          datos["marca"],
+          datos["modelo"],
+          datos["anyo"],
+        );
+
+        // Se almacena en los mapas de dispositivos y los servidores
         dispositivos[datos["id"]] = servidor;
         servidores[datos["id"]] = servidor;
-      
     }
 
     // Esta funcion se utiliza en todos las funciones de creación de Dispositivo
@@ -327,7 +278,7 @@ import 'reloj_inteligente.dart';
   void modificarDispositivoMenu(){
       while(true){
         try {
-          print("----Eliminar Dispositivo----");
+          print("----Modificar Dispositivo----");
           print("--Seleccione el ID del Dispositivo--");
           mostrarDispositivos();
           if (dispositivos.isEmpty) {
@@ -344,46 +295,70 @@ import 'reloj_inteligente.dart';
 
           // Sino que escoja el indice
           int? num = int.tryParse(opcion);
-          
-          
+
           if (num == null || !dispositivos.containsKey(num)) {
           print("ID no válido.");
           return;
   }
 
-          Dispositivo disp = dispositivos[num]!;
+          Dispositivo dispositivo = dispositivos[num]!;
 
           // Que modifique los campos que comparten en Dispositivo
-          print("Nueva marca (actual: ${disp.marca}): ");
+          print("Nueva marca (actual: ${dispositivo.marca}): ");
           String nuevaMarca = stdin.readLineSync()!;
-          if (nuevaMarca.isNotEmpty) disp.marca = nuevaMarca;
-          print("Nuevo modelo (actual: ${disp.modelo}): ");
-          String nuevoModelo = stdin.readLineSync()!;
-          if (nuevoModelo.isNotEmpty) disp.modelo = nuevoModelo;
-          print("Nuevo Año de fabricación:  (actual: ${disp.anyoFabricacion}): ");
-          int anyoFabricacion = int.parse(stdin.readLineSync()!);
-          disp.anyoFabricacion = anyoFabricacion;
+          if (nuevaMarca.isNotEmpty) dispositivo.marca = nuevaMarca;
 
-          // Ahora que lo modifique dentro de su Map particular
+          print("Nuevo modelo (actual: ${dispositivo.modelo}): ");
+          String nuevoModelo = stdin.readLineSync()!;
+          if (nuevoModelo.isNotEmpty) dispositivo.modelo = nuevoModelo;
+
+          print("Nuevo Año de fabricación:  (actual: ${dispositivo.anyoFabricacion}): ");
+          int anyoFabricacion = int.parse(stdin.readLineSync()!);
+          dispositivo.anyoFabricacion = anyoFabricacion;
+
+
+          // Ahora que lo modifique dentro de su Map particular, y con sus atributos
+          // particulares de cada clase
           if (ordenadores.containsKey(num)) {
+              // Atributos generales
               ordenadores[num]?.marca = nuevaMarca;
               ordenadores[num]?.modelo = nuevoModelo;
               ordenadores[num]?.anyoFabricacion = anyoFabricacion;
+              // Atributo particular
+              print("Nuevo modelo de procesador (actual: ${ordenadores[num]!.modeloProcesador}): ");
+              String nuevoProcesador = stdin.readLineSync()!;
+              if (nuevoProcesador.isNotEmpty) ordenadores[num]!.modeloProcesador = nuevoProcesador;
             }
             else if(tablets.containsKey(num)){
+              // Atributos generales
               tablets[num]?.marca = nuevaMarca;
               tablets[num]?.modelo = nuevoModelo;
               tablets[num]?.anyoFabricacion = anyoFabricacion;
+              // Atributo particular
+              print("Nuevo sistema operativo (actual: ${tablets[num]!.sistemaOperativo}): ");
+              String nuevoSO = stdin.readLineSync()!;
+              if (nuevoSO.isNotEmpty) tablets[num]!.sistemaOperativo = nuevoSO;
             }
             else if(relojesInteligentes.containsKey(num)){
+              // Atributos generales
               relojesInteligentes[num]?.marca = nuevaMarca;
               relojesInteligentes[num]?.modelo = nuevoModelo;
               relojesInteligentes[num]?.anyoFabricacion = anyoFabricacion;
+              // Atributo particular
+              print("GPS integrado (actual: ${relojesInteligentes[num]!.gpsIntegrado ? "Tiene GPS" : "No Tiene GPS"}) (s/n): ");
+              String resp = stdin.readLineSync()!.toLowerCase();
+              if (resp == "s") relojesInteligentes[num]!.gpsIntegrado = true;
+              if (resp == "n") relojesInteligentes[num]!.gpsIntegrado = false;
             }
             else if(servidores.containsKey(num)){
+               // Atributos generales
               servidores[num]?.marca = nuevaMarca;
               servidores[num]?.modelo = nuevoModelo;
               servidores[num]?.anyoFabricacion = anyoFabricacion;
+              // Atributo particular
+              print("Nuevo almacenamiento en GB (actual: ${servidores[num]!.almacenamiento}): ");
+              double? nuevoAlm = double.tryParse(stdin.readLineSync()!);
+              if (nuevoAlm != null) servidores[num]!.almacenamiento = nuevoAlm;
             }
             print("Se ha modificado correctamente el dispositivo. ");
             break;
