@@ -106,6 +106,11 @@ import 'reloj_inteligente.dart';
           // Se almacena en los mapas de dispositivos y los ordenadores
           dispositivos[datos["id"]] = ordenador;
           ordenadores[datos["id"]] = ordenador;
+
+          // Cuando lo crea que implemete la funcion del mixin que tiene la clase
+          ordenador.compilarCodigo();
+          ordenador.conectarRed("RED_STUCOM");
+          ordenador.sincronizarDatos();
     }
 
     void crearTablet() {
@@ -128,6 +133,11 @@ import 'reloj_inteligente.dart';
         // Se almacena en los mapas de dispositivos y tablets
         dispositivos[datos["id"]] = tablet;
         tablets[datos["id"]] = tablet;
+
+        // Se realizan las funciones de la clase
+        tablet.activarVibracion("SSN");
+        tablet.conectarRed("RED_STUCOM");
+        tablet.modoNoche();
     }
 
     void crearRelojInteligente() {
@@ -153,6 +163,11 @@ import 'reloj_inteligente.dart';
         // Se almacena en los mapas de dispositivos y los relojes
         dispositivos[datos["id"]] = relojInteligente;
         relojesInteligentes[datos["id"]] = relojInteligente;
+
+        // Se realizan las funciones de la clase
+        relojInteligente.activarVibracion("SSN");
+        relojInteligente.conectarRed("RED_STUCOM");
+        relojInteligente.mostrarNotificaciones();
     }
 
     void crearServidor() {
@@ -182,6 +197,11 @@ import 'reloj_inteligente.dart';
         // Se almacena en los mapas de dispositivos y los servidores
         dispositivos[datos["id"]] = servidor;
         servidores[datos["id"]] = servidor;
+
+        // Se realizan las funciones de la clase
+        servidor.actualizarLibrerias();
+        servidor.conectarRed("RED_STUCOM");
+        servidor.sincronizarDatos();
     }
 
     // Esta funcion se utiliza en todos las funciones de creación de Dispositivo
